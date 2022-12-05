@@ -1,0 +1,71 @@
+{
+	"compiler": {
+		"version": "0.8.1+commit.df193b15"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [],
+				"name": "getApodo",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "getIdentificador",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"contracts/Schemas.sol": "schema_usuario"
+		},
+		"evmVersion": "istanbul",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"contracts/Schemas.sol": {
+			"keccak256": "0xd7dca9c23202457a7687e47993dc4a7ea60b7cd1a1b6fcea2d2d41f21c7ba199",
+			"urls": [
+				"bzz-raw://82333dd0be93f0f9576323d8c257edf9e28aefaba059a0a6690e1c97774d4613",
+				"dweb:/ipfs/QmQSSChKe7h3q7eSCGrFN5E7sXhhcQzMp4wtCgxzMxwKHD"
+			]
+		}
+	},
+	"version": 1
+}

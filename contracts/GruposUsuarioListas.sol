@@ -1,56 +1,72 @@
 pragma solidity >=0.8.1 <0.9.0;
 
-
+import "hardhat/console.sol";
 
 /* 
  * @title Usuario
  * @type schema
  */
-contract Usuario {
+contract schema_usuario {
+    address _id;
+    string _toString;
 
-    // variable contante pero no se como se define
     enum util_estados { VACIO, NEW, VALIDADO, DISABLED, ERROR }
-    
-
-    address identificador;
-    string apodo;
     util_estados estado;
-    
-    
-    constructor(address _identificador, string memory _apodo) {
-        estado = util_estados.VACIO;
-        apodo = _apodo;
-    }
-
-    function hidrateByWallet(address _identificador) public returns(bool) {
-        identificador = _identificador;
-
-    }
 
     function getIdentificador() public view  returns( address ) {
-        return identificador;
+        return _id;
     }
 
     function getApodo() public view returns( string memory) {
-        return apodo;
+        return _toString;
     }
 
+
+}
+
+contract schema_grupo {
+    address _id;
+    string _toString;
+
+    enum util_estados { VACIO, NEW, VALIDADO, DISABLED, ERROR }
+    util_estados estado = util_estados.NEW;
+
+    function getIdentificador() public view  returns( address ) {
+        return _id;
+    }
+
+    function getApodo() public view returns( string memory) {
+        return _toString;
+    }
+
+}
+
+
+/* 
+ * @title Usuario
+ * @type instance
+ */
+contract Usuario is schema_usuario {
+
+    function hidrateByWallet(address _identificador) public returns(bool) {
+        _id = _identificador;
+
+    }
 }
 
 /* 
  * @title grupo
  * @type schema
  */
-contract Grupo {
+contract Grupo is schema_grupo {
 
     string apodo;
     address identificador;
     GrupoUsuarios_OneToMany GrupoUsuarios;
     
     constructor(string memory _apodo) public {
-        apodo = _apodo;
-        
-        identificador = staticGenerateAddress();
+        _id = staticGenerateAddress();
+        _toString = _apodo;
 
         GrupoUsuarios = new GrupoUsuarios_OneToMany( this );
     }
@@ -64,6 +80,13 @@ contract Grupo {
         // descubrir como generar una adress random
         return address(this);
     }
+
+
+//    function getUsuarios() public view returns( string memory) {
+//       return GrupoUsuarios.all();
+//    }
+
+
 
 }
 
@@ -111,14 +134,40 @@ contract MatrisUsuario{
  * @title TESTv1
  * @type app
  */
-contract myTestv1{
+contract Aa_myTestv1{
 
     Grupo grupo;
 
+    Usuario usrCurrent;
+
     constructor() public {
-        // aca deveria ejecutar el contrato
-        
     }
+
+    function test() public {
+        initGrupo();
+        generateUser();
+    }
+
+    function initGrupo() private returns(bool)  {
+        grupo = new Grupo("uno");
+        return true;
+    }
+
+    function generateUser() private returns(bool) {
+        usrCurrent = new Usuario();
+        usrCurrent.hidrateByWallet(msg.sender);
+        grupo.addUsuario(usrCurrent);
+        return true;
+    }
+
+    function getGrupoAddresss() public view returns(address) {
+        return grupo.getIdentificador();
+    }
+
+    function getGrupoApodo() public view returns(string memory) {
+        return grupo.getApodo();
+    }
+
 
 }
 
